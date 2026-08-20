@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Desafio do Vôlei</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<h1>🏐 Desafio do Vôlei</h1>
+
+<div class="quadra-container">
+<div class="linha-rede">REDE DE VÔLEI</div>
+<div class="quadra">
+<div class="posicao pos-4">
+<span class="label-pos">Posição 4 (Ataque Esq.)</span>
+<input type="text" id="pos4" value="Jogador 4">
+</div>
+<div class="posicao pos-3">
+<span class="label-pos">Posição 3 (Levantador / Meio)</span>
+<input type="text" id="pos3" value="Jogador 3">
+</div>
+<div class="posicao pos-2">
+<span class="label-pos">Posição 2 (Ataque Dir.)</span>
+<input type="text" id="pos2" value="Jogador 2">
+</div>
+
+<div class="posicao pos-5">
+<span class="label-pos">Posição 5 (Defesa Esq.)</span>
+<input type="text" id="pos5" value="Jogador 5">
+</div>
+<div class="posicao pos-6">
+<span class="label-pos">Posição 6 (Defesa Meio)</span>
+<input type="text" id="pos6" value="Jogador 6">
+</div>
+<div class="posicao pos-1">
+<span class="label-pos">Posição 1 (Saque)</span>
+<input type="text" id="pos1" value="Jogador 1">
+</div>
+</div>
+</div>
+
+<div class="controles">
+<p>Escolha uma jogada:</p>
+<button onclick="sacar()">Saque</button>
+<button onclick="defender()">Defesa</button>
+<button onclick="levantar()" class="btn-levantar">Levantamento 🎯</button>
+<button onclick="atacar()">Ataque 🔥</button>
+<button onclick="bloquear()">Bloqueio</button>
+<button onclick="fazerRodizio()" class="btn-rodizio">Fazer Rodízio 🔄</button>
+<button onclick="manchete()">Manchete</button>
+<button onclick="toque()">Toque</button>
+</div>
+
+<h2 id="resultado">Aguardando jogada...</h2>
+<h2 id="placar">Placar: 0</h2>
+
+<script src="script.js"></script>
+</body>
+</html>
