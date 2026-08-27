@@ -2,59 +2,97 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>Desafio do Vôlei</title>
+<title>Campeonato de Vôlei Profissional</title>
 <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<h1>🏐 Desafio do Vôlei</h1>
+<header class="header-professional">
+<h1>🏐 CAMPEONATO PROFISSIONAL DE VÔLEI</h1>
+<div class="info-match">
+  <div class="team-info team-a">
+    <h2 id="teamAName">Time A</h2>
+    <p id="teamAPlacar" class="big-score">0</p>
+  </div>
+  <div class="match-info">
+    <p id="setInfo">SET 1</p>
+    <p class="vs">vs</p>
+    <p id="setsInfo">Sets: 0 x 0</p>
+  </div>
+  <div class="team-info team-b">
+    <h2 id="teamBName">Time B</h2>
+    <p id="teamBPlacar" class="big-score">0</p>
+  </div>
+</div>
+</header>
 
 <div class="quadra-container">
-<div class="linha-rede">REDE DE VÔLEI</div>
-<div class="quadra">
-<div class="posicao pos-4">
-<span class="label-pos">Posição 4 (Ataque Esq.)</span>
-<input type="text" id="pos4" value="Jogador 4">
-</div>
-<div class="posicao pos-3">
-<span class="label-pos">Posição 3 (Levantador / Meio)</span>
-<input type="text" id="pos3" value="Jogador 3">
-</div>
-<div class="posicao pos-2">
-<span class="label-pos">Posição 2 (Ataque Dir.)</span>
-<input type="text" id="pos2" value="Jogador 2">
+  <div class="lado-quadra time-a-side">
+    <div class="time-label">🟣 TIME A (ROXO)</div>
+    <div class="quadra-metade">
+      <div class="posicao pos-4">
+        <span class="label-pos">Pos 4 - Ataque Esq</span>
+        <input type="text" id="pos4" value="Jogador 4">
+      </div>
+      <div class="posicao pos-3">
+        <span class="label-pos">Pos 3 - Levantador</span>
+        <input type="text" id="pos3" value="Jogador 3">
+      </div>
+      <div class="posicao pos-2">
+        <span class="label-pos">Pos 2 - Ataque Dir</span>
+        <input type="text" id="pos2" value="Jogador 2">
+      </div>
+    </div>
+  </div>
+
+  <div class="linha-rede">
+    <div class="net-line"></div>
+    <div class="net-label">REDE PROFISSIONAL</div>
+    <div class="net-line"></div>
+  </div>
+
+  <div class="lado-quadra time-b-side">
+    <div class="time-label">🔵 TIME B (AZUL)</div>
+    <div class="quadra-metade">
+      <div class="posicao pos-5">
+        <span class="label-pos">Pos 5 - Defesa Esq</span>
+        <input type="text" id="pos5" value="Jogador 5">
+      </div>
+      <div class="posicao pos-6">
+        <span class="label-pos">Pos 6 - Defesa Meio</span>
+        <input type="text" id="pos6" value="Jogador 6">
+      </div>
+      <div class="posicao pos-1">
+        <span class="label-pos">Pos 1 - Saque</span>
+        <input type="text" id="pos1" value="Jogador 1">
+      </div>
+    </div>
+  </div>
 </div>
 
-<div class="posicao pos-5">
-<span class="label-pos">Posição 5 (Defesa Esq.)</span>
-<input type="text" id="pos5" value="Jogador 5">
-</div>
-<div class="posicao pos-6">
-<span class="label-pos">Posição 6 (Defesa Meio)</span>
-<input type="text" id="pos6" value="Jogador 6">
-</div>
-<div class="posicao pos-1">
-<span class="label-pos">Posição 1 (Saque)</span>
-<input type="text" id="pos1" value="Jogador 1">
-</div>
-</div>
+<div class="status-area">
+  <p id="ladoQuadra" class="lado-info">
+    <span style="color: #a855c7;">🔕 Time A (ROXO): ACIMA | Time B (AZUL): ABAIXO</span>
+  </p>
+  <h2 id="resultado" class="resultado-msg">Aguardando jogada...</h2>
 </div>
 
-<div class="controles">
-<p>Escolha uma jogada:</p>
-<button onclick="sacar()">Saque</button>
-<button onclick="defender()">Defesa</button>
-<button onclick="levantar()" class="btn-levantar">Levantamento 🎯</button>
-<button onclick="atacar()">Ataque 🔥</button>
-<button onclick="bloquear()">Bloqueio</button>
-<button onclick="fazerRodizio()" class="btn-rodizio">Fazer Rodízio 🔄</button>
-<button onclick="manchete()">Manchete</button>
-<button onclick="toque()">Toque</button>
+<div class="controles-container">
+  <div class="controles">
+    <h3>Ações do Jogo</h3>
+    <div class="buttons-grid">
+      <button onclick="sacar()" class="btn-primary">🏐 Saque</button>
+      <button onclick="defender()" class="btn-secondary">👏 Defesa</button>
+      <button onclick="manchete()" class="btn-secondary">👏 Manchete</button>
+      <button onclick="toque()" class="btn-secondary">👆 Toque</button>
+      <button onclick="levantar()" class="btn-destaque">🎯 Levantamento</button>
+      <button onclick="atacar()" class="btn-attack">🔥 ATAQUE</button>
+      <button onclick="bloquear()" class="btn-defense">🛡️ Bloqueio</button>
+      <button onclick="fazerRodizio()" class="btn-rodizio">🔄 Rodízio</button>
+    </div>
+  </div>
 </div>
-
-<h2 id="resultado">Aguardando jogada...</h2>
-<h2 id="placar">Placar: 0</h2>
 
 <script src="script.js"></script>
 </body>

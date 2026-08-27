@@ -4,8 +4,12 @@
 let pontos = 0;
 let placarTimeA = 0;
 let placarTimeB = 0;
+let setAtual = 1;
+let setsVencidosTimeA = 0;
+let setsVencidosTimeB = 0;
 let bolaEmJogo = true;
 let bolaLevantada = false; // Controle que impede atacar sem antes levantar
+let timeANoCimaQuadra = true; // Controla qual time está de qual lado da quadra
 
 // ==========================================
 // 2. FUNÇÃO DE RODÍZIO (Lógica de Troca)
@@ -47,6 +51,14 @@ function defender() {
 document.getElementById("resultado").innerHTML = "👏 Defesa realizada com sucesso! Agora preparem o levantamento.";
 }
 
+function manchete() {
+document.getElementById("resultado").innerHTML = "👏 Manchete realizada com sucesso! Agora preparem o levantamento.";
+}
+
+function toque() {
+document.getElementById("resultado").innerHTML = "👏 Toque realizado com sucesso!.";
+}
+
 function levantar() {
 // Pega o nome do jogador na Posição 3 (Levantador)
 const levantador = document.getElementById("pos3").value;
@@ -69,14 +81,7 @@ return; // Interrompe a função
 // Consome a bola levantada (precisará de outro levantamento no próximo ponto)
 bolaLevantada = false;
 
-pontos++;
-
 document.getElementById("resultado").innerHTML = "🔥 Ataque potente no chão! Ponto para sua equipe!";
-
-const elementoPlacar = document.getElementById("placar");
-if (elementoPlacar) {
-elementoPlacar.innerHTML = "Placar: " + pontos;
-}
 
 registrarPonto("A");
 }
@@ -101,16 +106,116 @@ placarTimeB++;
 console.log("Ponto para o Time B!");
 }
 
+// Atualiza o placar profissional
+atualizarPlacarProfissional();
+
 verificarFimDeSet();
 }
 
-function verificarFimDeSet() {
-if (placarTimeA >= 5) {
-console.log("Fim do Set! Time A venceu!");
-document.getElementById("resultado").innerHTML = "🏆 Fim do Set! Sua equipe venceu!";
-bolaEmJogo = false;
-} else if (placarTimeB >= 5) {
-console.log("Fim do Set! Time B venceu!");
-bolaEmJogo = false;
+function atualizarPlacarProfissional() {
+// Atualiza os placar grandes dos times
+const teamAPlacar = document.getElementById("teamAPlacar");
+const teamBPlacar = document.getElementById("teamBPlacar");
+if (teamAPlacar) teamAPlacar.innerHTML = placarTimeA;
+if (teamBPlacar) teamBPlacar.innerHTML = placarTimeB;
+
+// Atualiza o Set Info
+const setInfo = document.getElementById("setInfo");
+if (setInfo) setInfo.innerHTML = "SET " + setAtual;
+
+// Atualiza os sets vencidos
+const setsInfo = document.getElementById("setsInfo");
+if (setsInfo) {
+setsInfo.innerHTML = "Sets: " + setsVencidosTimeA + " x " + setsVencidosTimeB;
 }
+}
+
+function verificarFimDeSet() {
+const PONTOS_VITORIA = 25;
+const DIFERENCA_MINIMA = 2;
+
+// Verifica se alguém atingiu 25 pontos com diferença mínima de 2
+if (placarTimeA >= PONTOS_VITORIA && (placarTimeA - placarTimeB) >= DIFERENCA_MINIMA) {
+setsVencidosTimeA++;
+console.log("Fim do Set! Time A venceu o Set " + setAtual + "!");
+document.getElementById("resultado").innerHTML = 
+"🏆 <b>FIM DO SET!</b> Sua equipe venceu o Set " + setAtual + "!<br>" +
+"Sets: Time A " + setsVencidosTimeA + " x " + setsVencidosTimeB + " Time B";
+bolaEmJogo = false;
+reiniciarSet();
+} else if (placarTimeB >= PONTOS_VITORIA && (placarTimeB - placarTimeA) >= DIFERENCA_MINIMA) {
+setsVencidosTimeB++;
+console.log("Fim do Set! Time B venceu o Set " + setAtual + "!");
+document.getElementById("resultado").innerHTML = 
+"🏆 <b>FIM DO SET!</b> Time B venceu o Set " + setAtual + "!<br>" +
+"Sets: Time A " + setsVencidosTimeA + " x " + setsVencidosTimeB + " Time B";
+bolaEmJogo = false;
+reiniciarSet();
+}
+}
+
+function reiniciarSet() {
+setTimeout(() => {
+setAtual++;
+placarTimeA = 0;
+placarTimeB = 0;
+bolaLevantada = false;
+bolaEmJogo = true;
+
+// Troca os times de lado da quadra
+trocarLadoQuadra();
+
+// Atualiza o placar profissional
+atualizarPlacarProfissional();
+
+document.getElementById("resultado").innerHTML = "📍 Novo set iniciado! SET " + setAtual + "<br>⚽ Times trocaram de lado!<br>Posicionem-se para começar!";
+}, 2000);
+}
+
+function trocarLadoQuadra() {
+// Inverte qual time está em qual lado
+timeANoCimaQuadra = !timeANoCimaQuadra;
+
+// Atualiza a informação visual de qual lado cada time está
+atualizarLadoQuadra();
+
+console.log("Times trocaram de lado! Time A agora está " + (timeANoCimaQuadra ? "ACIMA" : "ABAIXO") + " da quadra.");
+}
+
+function atualizarLadoQuadra() {
+const elementoLado = document.getElementById("ladoQuadra");
+if (elementoLado) {
+if (timeANoCimaQuadra) {
+elementoLado.innerHTML = "<span style='color: #a855c7;'>🔕 Time A (ROXO): ACIMA | Time B (AZUL): ABAIXO</span>";
+} else {
+elementoLado.innerHTML = "<span style='color: #64b4e6;'>🔕 Time A (ROXO): ABAIXO | Time B (AZUL): ACIMA</span>";
+}
+}
+}
+
+// ==========================================
+// 5. INICIALIZAÇÃO DO JOGO
+// ==========================================
+atualizarLadoQuadra();
+atualizarPlacarProfissional();
+
+// ==========================================
+// 6. MASCOTE YU NISHINOYA
+// ==========================================
+const mascoteNishinoya = document.querySelector('.mascote-nishinoya');
+
+if (mascoteNishinoya) {
+  mascoteNishinoya.addEventListener('click', function() {
+    this.classList.add('nishinoya-ataque');
+    
+    // Mensagem especial
+    const resultado = document.getElementById("resultado");
+    if (resultado) {
+      resultado.innerHTML = "💪 Yu Nishinoya: 'Deixa comigo! Vou defender com tudo!' 🏐";
+    }
+    
+    setTimeout(() => {
+      this.classList.remove('nishinoya-ataque');
+    }, 600);
+  });
 }
