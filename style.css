@@ -6,7 +6,10 @@
 
 body {
   font-family: 'Arial', sans-serif;
-  background: linear-gradient(135deg, #b94f1f 0%, #df7830 24%, #65798a 50%, #405565 76%, #253746 100%);
+  background:
+    linear-gradient(110deg, rgba(8, 12, 18, 0.96) 0%, rgba(8, 12, 18, 0.82) 42%, rgba(239, 91, 35, 0.68) 100%),
+    repeating-linear-gradient(135deg, transparent 0 90px, rgba(255, 255, 255, 0.045) 90px 94px),
+    linear-gradient(135deg, #111820 0%, #202b36 52%, #ef5b23 100%);
   background-attachment: fixed;
   color: #333;
   padding: 20px;
@@ -27,15 +30,15 @@ body::before {
       0deg,
       transparent,
       transparent 39px,
-      rgba(255, 194, 126, 0.09) 39px,
-      rgba(255, 194, 126, 0.09) 40px
+      rgba(239, 91, 35, 0.12) 39px,
+      rgba(239, 91, 35, 0.12) 40px
     ),
     repeating-linear-gradient(
       90deg,
       transparent,
       transparent 39px,
-      rgba(198, 218, 230, 0.09) 39px,
-      rgba(198, 218, 230, 0.09) 40px
+      rgba(255, 255, 255, 0.08) 39px,
+      rgba(255, 255, 255, 0.08) 40px
     );
   pointer-events: none;
   z-index: -1;
@@ -43,20 +46,37 @@ body::before {
 }
 
 body::after {
-  content: '🏐 🏐 🏐 🏐 🏐 🏐 🏐 🏐 🏐 🏐 🏐 🏐 🏐 🏐 🏐 🏐 🏐 🏐 🏐 🏐';
+  content: 'HAIKYUU!!';
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  font-size: 60px;
-  line-height: 120px;
+  font-size: clamp(72px, 16vw, 190px);
+  line-height: 1;
+  font-weight: 900;
+  letter-spacing: 12px;
+  color: rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: rotate(-12deg);
   pointer-events: none;
   opacity: 0.08;
   z-index: -1;
-  white-space: pre-wrap;
-  word-wrap: break-word;
-  animation: floatBalls 20s linear infinite;
+  white-space: nowrap;
+  animation: titlePulse 8s ease-in-out infinite alternate;
+}
+
+@keyframes titlePulse {
+  from {
+    opacity: 0.45;
+    transform: rotate(-12deg) scale(0.98);
+  }
+  to {
+    opacity: 0.8;
+    transform: rotate(-12deg) scale(1.03);
+  }
 }
 
 @keyframes floatBalls {
@@ -467,6 +487,26 @@ body::after {
   grid-gap: 12px;
 }
 
+.imagem-fora-campo {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 2;
+  width: min(220px, 18vw);
+  aspect-ratio: 750 / 422;
+  object-fit: cover;
+  border: 4px solid #ef5b23;
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.55), 0 0 0 2px rgba(255, 255, 255, 0.18);
+  transform: rotate(3deg);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.imagem-fora-campo:hover {
+  transform: rotate(0deg) scale(1.04);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.65), 0 0 18px rgba(239, 91, 35, 0.5);
+}
+
 /* Linha da Rede */
 .linha-rede {
   min-height: 82px;
@@ -584,6 +624,51 @@ body::after {
   text-transform: uppercase;
 }
 
+.personagem {
+  width: 48px;
+  height: 48px;
+  margin: 2px 0 8px;
+  display: grid;
+  place-items: center;
+  border: 3px solid #f5f1e8;
+  border-radius: 50%;
+  color: #fff;
+  font-family: Georgia, serif;
+  font-size: 22px;
+  font-weight: bold;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.5), inset 0 -7px 0 rgba(0, 0, 0, 0.18);
+  transition: transform 0.3s ease;
+}
+
+.posicao:hover .personagem {
+  transform: translateY(-4px) rotate(-5deg);
+}
+
+.personagem-hinata {
+  background: linear-gradient(145deg, #ffb326 0 45%, #e85a24 46%);
+}
+
+.personagem-kageyama {
+  background: linear-gradient(145deg, #162536 0 48%, #1d6695 49%);
+}
+
+.personagem-tanaka {
+  background: linear-gradient(145deg, #252525 0 48%, #e67e22 49%);
+}
+
+.personagem-nishinoya {
+  background: linear-gradient(145deg, #f0b323 0 45%, #20252b 46%);
+}
+
+.personagem-tsukishima {
+  background: linear-gradient(145deg, #d9e9f1 0 45%, #778b9d 46%);
+  color: #233343;
+}
+
+.personagem-oikawa {
+  background: linear-gradient(145deg, #7dc6df 0 45%, #2e6f98 46%);
+}
+
 .posicao input {
   width: 90%;
   padding: 8px;
@@ -602,6 +687,17 @@ body::after {
   border-color: #e07a32;
   background: rgba(0, 0, 0, 0.6);
   box-shadow: 0 0 10px rgba(224, 122, 50, 0.5);
+}
+
+@media (max-width: 720px) {
+  .imagem-fora-campo {
+    position: relative;
+    right: auto;
+    bottom: auto;
+    display: block;
+    width: min(280px, 85vw);
+    margin: 0 auto 24px;
+  }
 }
 
 /* Área de Status */
