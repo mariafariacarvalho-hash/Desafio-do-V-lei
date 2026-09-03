@@ -223,11 +223,11 @@ if (mascoteNishinoya) {
 // Ajusta a imagem fora de campo para o personagem oficial de Yu Nishinoya,
 // mantendo-o ao lado direito da quadra e fora das linhas de jogo.
 const quadra = document.querySelector('.quadra-container');
-let personagemNishinoya = document.querySelector('.imagem-fora-campo');
+let personagemNishinoya = document.querySelector('.personagem-fora-nishinoya');
 
 if (!personagemNishinoya) {
   personagemNishinoya = document.createElement('img');
-  personagemNishinoya.className = 'imagem-fora-campo';
+  personagemNishinoya.className = 'imagem-fora-campo personagem-fora-nishinoya';
   personagemNishinoya.alt = 'Yu Nishinoya da Karasuno';
   document.body.appendChild(personagemNishinoya);
 }
@@ -244,7 +244,8 @@ if (quadra && personagemNishinoya) {
       width: min(290px, 26vw) !important;
       max-width: 330px !important;
       min-width: 190px !important;
-      height: auto !important;
+      height: min(163px, calc(26vw * 0.5627)) !important;
+      aspect-ratio: 750 / 422 !important;
       object-fit: cover !important;
       object-position: center !important;
       transform: translateY(-12px) rotate(0deg) !important;
@@ -256,13 +257,20 @@ if (quadra && personagemNishinoya) {
       background: rgba(17, 24, 39, 0.6);
     }
 
+    .personagem-fora-hinata {
+      left: clamp(12px, 2vw, 32px) !important;
+      right: auto !important;
+    }
+
     @media (max-width: 720px) {
       .imagem-fora-campo {
         position: relative !important;
         right: auto !important;
+        left: auto !important;
         bottom: auto !important;
         display: block !important;
         width: min(280px, 85vw) !important;
+        height: 158px !important;
         margin: 0 auto 24px !important;
       }
     }
